@@ -1,6 +1,6 @@
-import { CreateProductResponseDto } from '../models/dtos/create-product-response.dto';
+import { ProductModel } from '../product.model';
 
 export interface IProductUseCase {
-  create(name: string, price: number): Promise<CreateProductResponseDto>;
-  findAll(): Promise<CreateProductResponseDto[]>;
+  create(name: string, price: number): Promise<ProductModel>;
+  findAll(): Promise<ProductModel[]>;
 }

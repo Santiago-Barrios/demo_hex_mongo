@@ -3,11 +3,10 @@ import { ProductTable } from './product.entity';
 import { IProductRepository } from '../../../domain/output-ports/IProductRepository';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateProductResponseDto } from 'src/product/domain/models/dtos/create-product-response.dto';
-import { ProductModel } from 'src/product/domain/models/product.Model';
+import { ProductModel } from 'src/product/domain/product.model';
 
 @Injectable()
-export class ProductMongoDB implements IProductRepository {
+export class ProductMongoDB implements Partial<IProductRepository> {
   constructor(
     @InjectModel(ProductTable.name)
     private productModel: Model<ProductTable>,
@@ -21,7 +20,7 @@ export class ProductMongoDB implements IProductRepository {
     return this.productModel.create(product);
   }
 
-  async findAll(): Promise<CreateProductResponseDto[]> {
+  async search(): Promise<ProductModel[]> {
     return this.productModel.find({});
   }
 }

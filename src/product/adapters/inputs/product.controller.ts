@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Inject } from '@nestjs/common';
 import { ProductService } from '../../domain/input-ports/product.service';
-import { CreateProductDto } from '../dtos/create-product.dto';
+import { CreateProductDto } from './dtos/create-product.dto';
 import { IProductUseCase } from 'src/product/domain/input-ports/IProduct.usecase';
 
 @Controller('products')

@@ -1,6 +1,9 @@
-import { ProductModel } from '../product.model';
+import {ProductModel} from '../product.model';
 
 export interface IProductUseCase {
-  create(name: string, price: number): Promise<ProductModel>;
-  findAll(): Promise<ProductModel[]>;
+    create(name: string, price: number): Promise<ProductModel>;
+
+    findAll(): Promise<ProductModel[]>;
+
+    addImages(productId:string, images: string[]): Promise<void>;
 }

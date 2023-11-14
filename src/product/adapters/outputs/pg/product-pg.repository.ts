@@ -6,12 +6,16 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { validate as isUUID } from 'uuid';
 import { DataSource, Repository } from 'typeorm';
 import { ProductEntity } from './product.entity';
 import { ProductModel } from 'src/product/domain/product.model';
 import { IUbitsFilter } from 'src/core/utils';
 import { IProductRepository } from 'src/product/domain/output-ports/IProductRepository';
+import {isUUID} from "class-validator";
+import {take} from "rxjs";
+import {Error, Promise} from "mongoose";
+import * as console from "console";
+
 
 @Injectable()
 export class ProductPGRepository implements IProductRepository {
@@ -128,5 +132,9 @@ export class ProductPGRepository implements IProductRepository {
   }
   outputFormat(data: any, args?: any) {
     console.log({ data, args });
+  }
+
+  addImages(productId: string, images: string[]): Promise<void> {
+    return Promise.resolve(undefined);
   }
 }

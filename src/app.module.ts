@@ -9,7 +9,6 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     ConfigurationModule,
     ProductModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/nest-store'),
   ],
 })
 export class AppModule {}

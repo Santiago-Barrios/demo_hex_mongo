@@ -1,19 +1,18 @@
 import {Inject, Injectable} from '@nestjs/common';
-import {IProductUseCase} from './IProduct.usecase';
+import {ProductUsecase} from './product.usecase';
 import {ProductModel} from '../product.model';
 import {IProductRepository} from '../output-ports/IProductRepository';
-import {Promise, Schema} from "mongoose";
 
 @Injectable()
-export class ProductService implements IProductUseCase {
+export class ProductService implements ProductUsecase {
     constructor(
         @Inject(IProductRepository)
         private productRepository: IProductRepository,
     ) {
     }
 
-    async create(name: string, price: number): Promise<ProductModel> {
-        const newProduct = new ProductModel(null, name, price);
+    async create(name: string, price: number, images: string[]): Promise<ProductModel> {
+        const newProduct = new ProductModel(null, name, price, images);
         return this.productRepository.create(newProduct);
     }
 

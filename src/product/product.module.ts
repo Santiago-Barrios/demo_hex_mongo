@@ -28,6 +28,6 @@ import {ImageEntity} from "./adapters/outputs/mysql/image.entity";
   ],
   providers: [ProductService, productServiceProvider(process.env.ENVIRONMENT)],
   controllers: [ProductController],
-  exports: [],
+  exports: [ProductService],
 })
 export class ProductModule {}

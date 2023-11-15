@@ -128,7 +128,7 @@ export class ProductPGRepository implements IProductRepository {
 
   inputFormat(data: any, args?: any): ProductModel {
     console.log({ data, args });
-    return new ProductModel(null, 'name', 3000, []);
+    return new ProductModel(null, 'name', 3000);
   }
   outputFormat(data: any, args?: any) {
     console.log({ data, args });

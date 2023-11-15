@@ -12,8 +12,6 @@ export class ProductMysqlRepository implements IProductRepository {
     constructor(
         @InjectRepository(ProductEntity)
         private readonly productRepository: Repository<ProductEntity>,
-        @InjectRepository(ImageEntity)
-        private readonly imageRepository: Repository<ImageEntity>
     ) {
     }
 
@@ -34,29 +32,7 @@ export class ProductMysqlRepository implements IProductRepository {
 
     async create(productModel: ProductModel): Promise<ProductModel> {
         const productEntity = await this.productRepository.save({name: productModel.name, price: productModel.price});
-
-        if (productModel.images) {
-            const images = await this._addImages(productEntity, productModel.images);
-            productEntity.images = images
-        }
         return this._outputFormat(productEntity)
-    }
-
-    private async _addImages(productEntity: ProductEntity, images: string[]) {
-        const imagesEntities = []
-        for (const imageUrl of images) {
-            const imageEntity = await this.imageRepository.save({
-                url: imageUrl,
-                product: productEntity
-            })
-            imagesEntities.push(imageEntity)
-        }
-        return imagesEntities
-    }
-
-    async addImages(productId: string, images: string[]): Promise<void> {
-        const product = await this._getById(productId);
-        await this._addImages(product, images)
     }
 
     async deleteById(id: string): Promise<void> {
@@ -69,8 +45,7 @@ export class ProductMysqlRepository implements IProductRepository {
     }
 
     private _outputFormat(data: ProductEntity): ProductModel {
-        const images = data.images.map((imageEntity) => imageEntity.url);
-        return new ProductModel(data.id, data.name, data.price, images);
+        return new ProductModel(data.id, data.name, data.price);
     }
 
     outputFormat(data: any, args?: any): any {
@@ -78,10 +53,7 @@ export class ProductMysqlRepository implements IProductRepository {
 
     async search(options?: IUbitsFilter): Promise<ProductModel[]> {
         const products = await this.productRepository.find();
-        return products.map((productEntity) => {
-            const images = productEntity.images.map((imageEntity) => imageEntity.url);
-            return new ProductModel(productEntity.id, productEntity.name, productEntity.price, images);
-        })
+        return products.map((product) => this._outputFormat(product));
     }
 
     update(id: string, updatedEntity: ProductModel): Promise<ProductModel | undefined> {

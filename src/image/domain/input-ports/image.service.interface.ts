@@ -1,3 +1,5 @@
+import {ImageModel} from "../image.model";
+
 export interface IImageService {
-    create(url: string, productId: string): Promise<void>;
+    create(url: string, productId: string): Promise<ImageModel>;
 }

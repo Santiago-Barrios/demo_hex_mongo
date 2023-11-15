@@ -8,8 +8,4 @@ export class CreateProductDto {
     @IsNumber()
     price: number;
 
-    @IsString({each: true})
-    @IsArray()
-    @IsOptional()
-    images: string[];
 }

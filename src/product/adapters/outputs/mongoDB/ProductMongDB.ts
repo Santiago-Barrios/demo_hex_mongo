@@ -16,9 +16,7 @@ export class ProductMongoDB implements Partial<IProductRepository> {
   //   return this.productModel.create(product);
   // }
 
-  async create(product: ProductModel): Promise<ProductModel> {
-    return this.productModel.create(product);
-  }
+  //TODO: Ver la relación en mongo
 
   async search(): Promise<ProductModel[]> {
     return this.productModel.find({});
